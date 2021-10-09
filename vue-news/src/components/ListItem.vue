@@ -8,12 +8,27 @@
         </div>
         <!-- 기타 정보 영역 -->
         <div>
+          <!-- 타이틀 영역 -->
           <p class="news-title">
-            <a :href="item.url">{{ item.title }}</a>
+            <template v-if="item.domain">
+              <a :href="item.url">
+                {{ item.title }}
+              </a>
+            </template>
+            <template v-else>
+              <router-link :to="'/item/' + item.id">
+              {{ item.title }}
+              </router-link>
+            </template>
           </p>
           <small class="link-text">
             by 
-            <router-link class="link-text" :to="'/user/' + item.user">{{ item.user }}</router-link>
+            <router-link v-if="item.user" class="link-text" :to="'/user/' + item.user">
+              {{ item.user }}
+            </router-link>
+            <a v-else :href="item.url">
+              {{ item.domain }}
+            </a>
           </small>
         </div>
       </li>
@@ -25,25 +40,18 @@
 export default {
   computed: {
     listItems() {
-      const name = this.$route.name;
-      if(name === 'news') {
-        return this.$store.state.news
-      } else if (name === 'jobs') {
-        return this.$store.state.jobs
-      } else if (name === 'ask') {
-        return this.$store.state.ask
-      }
+      // const name = this.$route.name;
+      // if(name === 'news') {
+      //   return this.$store.state.news
+      // } else if (name === 'jobs') {
+      //   return this.$store.state.jobs
+      // } else if (name === 'ask') {
+      //   return this.$store.state.ask
+      // }
+      return this.$store.state.list
     }
   },
  created() {
-   const name = this.$route.name;
-   if(name == 'news') {
-     this.$store.dispatch('FETCH_NEWS')
-   } else if (name == 'jobs') {
-     this.$store.dispatch('FETCH_JOBS')
-   } else if (name == 'ask') {
-     this.$store.dispatch('FETCH_ASK')
-   }
     
   },
   

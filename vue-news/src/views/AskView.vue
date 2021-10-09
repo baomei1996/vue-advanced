@@ -8,7 +8,7 @@
       <small>{{ ask.time_ago }} by {{ ask.user }}</small>
     </p> -->
 
-    <ul class="ask-list">
+    <!-- <ul class="ask-list">
       <li class="post" v-for="(ask, idx) in fetchedAsk" :key="idx">
         <div class="points">
           {{ ask.points }}
@@ -21,20 +21,41 @@
         </div>
         
       </li>
-    </ul>
+    </ul> -->
+    <list-item></list-item>
   </div>
 </template>
 
 <script>
 // import { fetchAskList } from '../api/index'
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
+import ListItem from '../components/ListItem.vue'
+import bus from '../utils/bus'
+// import ListMixin from '../mixins/ListMixin'
 export default {
+  components: {
+    ListItem
+  },
+  // mixins: [ListMixin],
   created() {
-    this.$store.dispatch('FETCH_ASK')
+  // bus.$emit('start:spinner')
+  //     setTimeout(() => {
+  //       this.$store.dispatch('FETCH_ASK')
+  //       .then(() => {
+  //         console.log('fetched');
+  //         bus.$emit('end:spinner')
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       })
+  //     }, 3000)
     // fetchAskList()
     //   .then(res => {
     //     this.asks = res.data
     //   })
+  },
+  mounted() {
+     bus.$emit('end:spinner')
   },
   computed: {
     //###1
@@ -46,7 +67,7 @@ export default {
     //   ask: state => state.ask
     // })
     //###3
-    ...mapGetters(['fetchedAsk'])
+    // ...mapGetters(['fetchedAsk'])
   }
   
 }

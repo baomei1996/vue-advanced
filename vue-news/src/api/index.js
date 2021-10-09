@@ -25,10 +25,15 @@ function fetchItemInfo(id) {
   return axios.get(config.baseUrl + 'item/' + id + '.json')
 }
 
+function fetchList(pagename) {
+  return axios.get(`${config.baseUrl}${pagename}/1.json`)
+}
+
 export{
   fetchNewsList,
   fetchAskList,
   fetchJobsList,
   fetchUserInfo,
   fetchItemInfo,
+  fetchList
 }
